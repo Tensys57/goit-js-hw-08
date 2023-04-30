@@ -1,7 +1,7 @@
 // Описаний в документації
-import SimpleLightbox from '../../node_modules/simplelightbox/dist/';
+import SimpleLightbox from 'simplelightbox';
 // Додатковий імпорт стилів
-import '../../node_modules/simplelightbox/dist/simple-lightbox.min.css';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 // Add imports above this line
 import { galleryItems } from './gallery-items';
@@ -22,4 +22,4 @@ const lightbox = new SimpleLightbox('.gallery a', {
   animationSpeed: 250,
   captionsData: 'alt',
 });
-console.log(galleryItems);
+// console.log(galleryItems);
