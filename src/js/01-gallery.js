@@ -22,4 +22,3 @@ const lightbox = new SimpleLightbox('.gallery a', {
   animationSpeed: 250,
   captionsData: 'alt',
 });
-// console.log(galleryItems);
