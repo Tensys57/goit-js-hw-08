@@ -3,17 +3,19 @@
 // Зберігай час відтворення у локальне сховище. Нехай ключем для сховища буде рядок "videoplayer-current-time".
 // Під час перезавантаження сторінки скористайся методом setCurrentTime() з метою відновлення відтворення зі збереженої позиції.
 // Додай до проекту бібліотеку lodash.throttle і зроби так, щоб час відтворення оновлювався у сховищі не частіше, ніж раз на секунду.
-
+const PLAY_GO = 'videoplayer-current-time';
 import Player from '@vimeo/player';
 import throttle from 'lodash.throttle';
 const iframe = document.querySelector('iframe');
 
 const player = new Player(iframe);
-
-const returnPoint = localStorage.getItem('videoplayer-current-time');
+let returnPoint = 0;
+if (localStorage.getItem(PLAY_GO)) {
+  returnPoint = localStorage.getItem(PLAY_GO);
+}
 
 const checkReturnPoint = function (data) {
-  localStorage.setItem('videoplayer-current-time', data.seconds);
+  localStorage.setItem(PLAY_GO, data.seconds);
 };
 player.setCurrentTime(returnPoint);
 player.on(`timeupdate`, throttle(checkReturnPoint, 1000));

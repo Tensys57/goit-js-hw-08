@@ -13,13 +13,18 @@ const ref = {
   submitBtn: document.querySelector('button'),
 };
 
-function inputHandler(event) {
-  const { email, message } = event.currentTarget.elements;
-  const formData = {
+function getDataValue() {
+  const { email, message } = ref.formData.elements;
+  const formDataValue = {
     email: email.value,
     message: message.value,
   };
-  localStorage.setItem(LOCAL_KEY, JSON.stringify(formData));
+  return formDataValue;
+}
+
+function inputHandler(event) {
+  const formDataValue = getDataValue();
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(formDataValue));
 }
 
 const formDataRecovery = JSON.parse(localStorage.getItem(LOCAL_KEY));
@@ -31,11 +36,11 @@ if (formDataRecovery) {
 
 function submitHandler(ev) {
   ev.preventDefault();
-  console.log('email:>> ', ref.formData.email.value);
-  console.log('message:>>', ref.formData.message.value);
+  console.log(getDataValue());
   ref.inputValue.value = '';
   ref.textareaValue.value = '';
   localStorage.removeItem(LOCAL_KEY);
 }
-ref.formData.addEventListener('input', inputHandler);
-ref.submitBtn.addEventListener('click', throttle(submitHandler, 500));
+
+ref.formData.addEventListener('input', throttle(inputHandler, 500));
+ref.submitBtn.addEventListener('click', submitHandler);
